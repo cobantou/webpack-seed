@@ -2,7 +2,9 @@ var webpack = require("webpack");
 var path = require('path');
 
 var nodeEnv = process.env.NODE_ENV;
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var outputDir = path.resolve(__dirname, 'lib');
+var jsVersion="20160920";
 
 module.exports = {
 
@@ -16,10 +18,9 @@ module.exports = {
   //  filename: '[name].js' // name是基于上边entry中定义的key
   //}
    output: {
-
       libraryTarget: "umd",
-	  path:  path.resolve(__dirname, 'lib/js/entry'),
-      filename:nodeEnv ?'[name].min.js':'[name].js' // name是基于上边entry中定义的key
+	  path:outputDir  ,
+      filename:nodeEnv ?'/js/entry/[name]_'+jsVersion+'.min.js':'/js/entry/[name]_'+jsVersion+'.js' // name是基于上边entry中定义的key
    },
    
 	// 服务器配置相关,自动刷新!
@@ -51,6 +52,12 @@ module.exports = {
 	plugins:[
 		new webpack.HotModuleReplacementPlugin(),//热加载
 		new webpack.optimize.OccurenceOrderPlugin(),
+		new HtmlWebpackPlugin({
+			template: 'index.html',
+			filename: outputDir+'/index.html',
+			inject: 'body',
+			chunks: ['index']
+		})
 		
 	],
 	
