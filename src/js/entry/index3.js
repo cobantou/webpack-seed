@@ -1,8 +1,4 @@
 import {a} from "../modules/m1"
 
-let b=12306;
-
-let c=9;
+let c=12304;
 console.log(c)
-
-

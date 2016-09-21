@@ -5,6 +5,7 @@
     "build": "set NODE_ENV=production&&webpack -p --progress --colors"
   },
   "devDependencies": {
+    "glob": "^7.1.0",
     "html-webpack-plugin": "^2.22.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"

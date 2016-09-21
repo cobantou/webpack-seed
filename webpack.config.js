@@ -1,7 +1,8 @@
 var webpack = require("webpack");
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var pagesJsonList = require('./htmlPage.config.js');//页面配置
+var pagesJsonList = require('./output.config.js');//页面配置
+const glob = require('glob');
 
 var nodeEnv = process.env.NODE_ENV;
 var isProduction=function(){
@@ -30,14 +31,19 @@ var pagesList=(function readHtmlPages(){
 	return pagesFactory(pagesJsonList);
 }())
 
-		
-	
+//entrys	
+var myEntrys=(function(){
+	var files = glob.sync('./src/js/entry/*.js');	
+	var entries = {};
+	files.forEach((filePath) => {
+        var filename = path.basename(filePath, '.js');
+		entries[filename]=path.join(__dirname, filePath);
+    })
+	return entries;
+}())	
 
 module.exports = {
-   entry: {
-	   index:path.join(__dirname, 'src/js/entry/index.js'),
-	   index2:path.join(__dirname, 'src/js/entry/index2.js'),
-   },  
+   entry: myEntrys,  
 
    output: {
 
@@ -72,8 +78,15 @@ module.exports = {
    // },
 	
 	plugins:[
-		new webpack.HotModuleReplacementPlugin(),//�ȼ���
-		new webpack.optimize.OccurenceOrderPlugin()	
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.OccurenceOrderPlugin()	,
+		new webpack.optimize.DedupePlugin()
+		// 提供公共代码
+        /*new webpack.optimize.CommonsChunkPlugin({
+                name: 'common',
+				filename: "js/common.js",
+				chunks:['index','index2']
+            })*/
 		
 	],
 	
