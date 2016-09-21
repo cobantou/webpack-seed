@@ -1,0 +1,6 @@
+body {
+  background-color: red;
+  opacity: 0.5;
+  transition: transform 1s;
+  display: flex;
+}

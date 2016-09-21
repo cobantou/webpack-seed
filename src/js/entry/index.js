@@ -1,4 +1,5 @@
 import {a} from "../modules/m1"
+require('../../less/index.less');
 
 let b=12306;
 
