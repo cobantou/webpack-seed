@@ -1,10 +1,14 @@
 var webpack = require("webpack");
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var pagesJsonList = require('./htmlPage.config.js');//页面配置
+var pagesJsonList = require('./htmlPage.config.js');//椤甸潰閰嶇疆
 
-var nodeEnv = process.env.NODE_ENV;//当前环境
+var nodeEnv = process.env.NODE_ENV;
+var isProduction=function(){
+	return nodeEnv=== 'production';
+}
 var outputDir = path.resolve(__dirname, 'lib');
+//鐢熸垚鐨刪tml鍒楄〃
 var pagesList=(function readHtmlPages(){	
 	var HtmlWebpackPluginFun=function(j){
 		return new HtmlWebpackPlugin({
@@ -12,7 +16,7 @@ var pagesList=(function readHtmlPages(){
 				filename: j.filename,
 				inject: 'body',
 				chunks: j.chuncks,
-				hash:true,
+				hash:isProduction()?true:false,
 				cache:true
 			})
 	}
@@ -39,17 +43,17 @@ module.exports = {
 
       libraryTarget: "umd",
 	  path:outputDir  ,
-      filename:nodeEnv ?'/js/entry/[name].min.js':'/js/entry/[name].js' ,// name是基于上边entry中定义的key
+      filename:isProduction() ?'/js/entry/[name].min.js':'/js/entry/[name].js' ,
 	  chunkFilename: '[name].min.js',
    },
    
-	// 服务器配置相关,自动刷新!
+	
     devServer: {
         historyApiFallback: true,
         hot: true,
         inline: true,
-        port: 8888,//端口
-        contentBase: './src',//配置网站根目录
+        port: 8888,
+        contentBase: './src',
     },
 	
    module: {
@@ -62,13 +66,13 @@ module.exports = {
       ]
    },
    
-   // 转化成es5的语法
+
    // babel: {
    //     plugins: ['transform-runtime']
    // },
 	
 	plugins:[
-		new webpack.HotModuleReplacementPlugin(),//热加载
+		new webpack.HotModuleReplacementPlugin(),//锟饺硷拷锟斤拷
 		new webpack.optimize.OccurenceOrderPlugin()	
 		
 	],
@@ -77,8 +81,8 @@ module.exports = {
 };
 
 
-//判断为生产模式
-if (process.env.NODE_ENV === 'production') {
+//鐢熶骇鐜
+if (isProduction()) {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
