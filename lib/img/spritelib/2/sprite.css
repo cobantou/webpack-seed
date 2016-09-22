@@ -1,0 +1,18 @@
+.spIcon-guide-02{
+    background-image: url("sprite.png");
+    background-position: -148px 0px;
+    width: 142px;
+    height: 142px;
+}
+.spIcon-guide-03{
+    background-image: url("sprite.png");
+    background-position: 0px -147px;
+    width: 142px;
+    height: 142px;
+}
+.spIcon-guide-04{
+    background-image: url("sprite.png");
+    background-position: 0px 0px;
+    width: 143px;
+    height: 142px;
+}
