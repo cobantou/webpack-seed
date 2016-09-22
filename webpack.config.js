@@ -2,6 +2,7 @@ var webpack = require("webpack");
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin =require('copy-webpack-plugin');
 var pagesJsonList = require('./output.config.js'); //页面配置
 const glob = require('glob');
 
@@ -114,10 +115,17 @@ if(isProduction()) {
 			compress: {
 				warnings: false
 			}
-		})
+		}),
+		new CopyWebpackPlugin([{
+			from:  __dirname + '/src/img',
+			to: __dirname + '/lib/img',
+			ignore:[{ glob:  'spritesrc/**/*', dot: true }]
+		}])
 		//,
 		//new webpack.optimize.OccurenceOrderPlugin()
 	])
+	
+	
 }
 
 module.exports.plugins = (module.exports.plugins || []).concat(pagesList);
