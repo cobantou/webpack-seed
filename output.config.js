@@ -1,6 +1,10 @@
 var pagesJsonList=[{
-	template:'src/template/index.html',
-	filename:'./html/index.html',
+	template:'src/index.html',
+	filename:'./index.html',
+	chuncks:['index']
+},{
+	template:'src/template/index0.html',
+	filename:'./html/index0.html',
 	chuncks:['index','index2']
 },{
 	template:'src/template/index1.html',
