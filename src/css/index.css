@@ -3,4 +3,5 @@ body {
   opacity: 0.5;
   transition: transform 1s;
   display: flex;
+  background-image: url(../img/icon_jzy1.png);
 }

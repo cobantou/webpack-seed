@@ -74,6 +74,9 @@ module.exports = {
 			}, {
 				test: /\.less$/,
 				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-convertValues!autoprefixer-loader!less-loader')
+			}, {
+				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+				loader: 'file-loader?name=img/[hash:8].[name].[ext]'
 			}
 
 		]
