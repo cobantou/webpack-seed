@@ -1,9 +1,3 @@
----
-title: 基于webpack的前端自动化工具
-tags: 新建,模板,小书匠
-grammar_cjkRuby: true
----
-
 
 # 一、简介
 ## 前提
